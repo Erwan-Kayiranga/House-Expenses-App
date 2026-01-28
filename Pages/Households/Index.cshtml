@@ -1,0 +1,58 @@
+@page
+@{
+  ViewData["Title"] = "Households";
+}
+<div class="grid">
+  <div class="card">
+    <h2>Create household</h2>
+    <div class="row">
+      <input id="hhName" placeholder="Household name" />
+      <button onclick="createHousehold()">Create</button>
+    </div>
+    <pre id="outCreate"></pre>
+  </div>
+
+  <div class="card">
+    <h2>All households</h2>
+    <button onclick="loadHouseholds()">Refresh</button>
+    <table class="table" id="hhTable">
+      <thead><tr><th>ID</th><th>Name</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <pre id="outList"></pre>
+  </div>
+</div>
+
+<script type="module">
+  import { gql } from "/js/api.js";
+
+  async function createHousehold(){
+    const name = document.getElementById("hhName").value.trim();
+    const q = `mutation($name:String!){ createHousehold(name:$name){ id name } }`;
+    const r = await gql(q, { name });
+    document.getElementById("outCreate").textContent = JSON.stringify(r,null,2);
+    await loadHouseholds();
+  }
+  window.createHousehold = createHousehold;
+
+  async function loadHouseholds(){
+    const q = `query { households { id name } }`;
+    const r = await gql(q);
+    document.getElementById("outList").textContent = JSON.stringify(r,null,2);
+
+    const tbody = document.querySelector("#hhTable tbody");
+    tbody.innerHTML = "";
+    const list = r?.data?.households ?? [];
+    for(const h of list){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${h.id}</td>
+        <td>${h.name}</td>
+        <td><a href="/Households/Details?id=${h.id}">Open</a></td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+  window.loadHouseholds = loadHouseholds;
+  loadHouseholds();
+</script>

@@ -1,0 +1,123 @@
+@page
+@{
+    ViewData["Title"] = "Household";
+    var id = Request.Query["id"].ToString();
+}
+
+<div class="card header-card">
+    <div>
+        <h1 class="page-title">Household</h1>
+        <div class="muted">Manage expenses, balances, and summaries for this household.</div>
+
+        <div class="muted" style="margin-top:10px;">
+            <span class="dot"></span>
+            <span id="hhDetailStatus">Loading...</span>
+        </div>
+        <div class="muted" style="margin-top:6px;">
+            Household ID: <strong id="hhIdLabel">@id</strong>
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button class="btn" type="button" onclick="hh_details_refresh()">Refresh</button>
+        <a class="btn" href="/Households">Back</a>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+    <!-- Add expense -->
+    <div class="card">
+        <h3 style="margin:0 0 10px 0;">Add expense</h3>
+        <div class="muted">Split equally by default.</div>
+
+        <div style="display:flex; gap:10px; margin-top:14px;">
+            <input id="exDesc" class="input" placeholder="Description (e.g. Groceries)" />
+        </div>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <input id="exAmount" class="input" placeholder="Amount (e.g. 42.50)" />
+            <input id="exDate" class="input" type="date" />
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:12px; align-items:center;">
+            <label class="muted" style="display:flex; gap:8px; align-items:center;">
+                <input id="exSplit" type="checkbox" checked />
+                Split equally
+            </label>
+            <button class="btn primary" type="button" onclick="hh_addExpense()">Add</button>
+        </div>
+
+        <div class="muted" style="margin-top:10px;">
+            (If your teacher wants “custom shares”, we can add it after submission.)
+        </div>
+    </div>
+
+    <!-- Balances -->
+    <div class="card">
+        <h3 style="margin:0 0 10px 0;">Balances</h3>
+        <div class="muted">Who paid vs who owes.</div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+            <table class="table" id="balTable">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th style="width:120px;">Paid</th>
+                        <th style="width:120px;">Owed</th>
+                        <th style="width:120px;">Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4" class="muted">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top:14px;">
+    <!-- Expenses list -->
+    <div class="card">
+        <h3 style="margin:0 0 10px 0;">Expenses</h3>
+        <div class="muted">Latest expenses for this household.</div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+            <table class="table" id="expTable">
+                <thead>
+                    <tr>
+                        <th style="width:110px;">Date</th>
+                        <th>Description</th>
+                        <th style="width:120px;">Amount</th>
+                        <th style="width:220px;">Paid by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4" class="muted">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raw response for screenshots -->
+    <div class="card">
+        <h3 style="margin:0 0 10px 0;">Response</h3>
+        <div class="muted">Useful for screenshots and debugging.</div>
+        <pre class="pre" id="hhDetailRaw" style="margin-top:12px;">{}</pre>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+(function(){
+  // default date = today
+  try {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth()+1).padStart(2,"0");
+    const dd = String(d.getDate()).padStart(2,"0");
+    document.getElementById("exDate").value = `${yyyy}-${mm}-${dd}`;
+  } catch {}
+
+  hh_details_refresh();
+})();
+</script>
+}

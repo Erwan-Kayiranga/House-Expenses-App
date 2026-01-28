@@ -1,11 +1,77 @@
 {
   "Version": 1,
-  "Hash": "raruAxiEAmit/WZ7n4bQ3HbaWafdCIe5Qd5EEDZXWWE=",
+  "Hash": "bfcbUsHBbJ7GoS/fYcYigAolY6mVPNA5/Dfy5PklIFs=",
   "Source": "HouseholdExpenses",
   "BasePath": "_content/HouseholdExpenses",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "HouseholdExpenses/wwwroot",
+      "Source": "HouseholdExpenses",
+      "ContentRoot": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/",
+      "BasePath": "_content/HouseholdExpenses",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/css/app.css",
+      "SourceId": "HouseholdExpenses",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/",
+      "BasePath": "_content/HouseholdExpenses",
+      "RelativePath": "css/app.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/app.css"
+    },
+    {
+      "Identity": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/js/api.js",
+      "SourceId": "HouseholdExpenses",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/",
+      "BasePath": "_content/HouseholdExpenses",
+      "RelativePath": "js/api.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/api.js"
+    },
+    {
+      "Identity": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/js/ui.js",
+      "SourceId": "HouseholdExpenses",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/",
+      "BasePath": "_content/HouseholdExpenses",
+      "RelativePath": "js/ui.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/ui.js"
+    }
+  ]
 }

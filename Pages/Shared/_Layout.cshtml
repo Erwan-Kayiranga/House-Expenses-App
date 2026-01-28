@@ -1,0 +1,54 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Household Expenses</title>
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+    <div class="shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-badge">HE</div>
+                <div class="brand-text">
+                    <div class="brand-title">Household Expenses</div>
+                    <div class="brand-subtitle">GraphQL + JWT + Roles</div>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a class="nav-item" href="/">🏠 Dashboard</a>
+                <a class="nav-item" href="/Register">🧾 Register</a>
+                <a class="nav-item" href="/Login">🔐 Login</a>
+                <a class="nav-item" href="/Households">🏡 Households</a>
+                <a class="nav-item" href="/Admin">🛡️ Admin</a>
+            </nav>
+
+            <div class="sidebar-note card soft">
+                <div class="note-title">Quick notes</div>
+                <div class="muted">
+                    Token is stored in <code>localStorage</code> and sent as:
+                    <br />
+                    <code>Authorization: Bearer ...</code>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/ui.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,73 @@
+@page
+@{
+  ViewData["Title"] = "Login";
+}
+
+<div class="grid">
+  <div class="card">
+    <h2>Sign in</h2>
+    <div class="muted">Use your email and password.</div>
+
+    <input id="email" placeholder="Email" />
+    <input id="pass" placeholder="Password" type="password" />
+    <button onclick="doLogin()">Login</button>
+  </div>
+
+  <div class="card">
+    <h2>Quick check</h2>
+    <div class="muted">Verify token + role access.</div>
+    <button class="btn2" onclick="me()">Who am I?</button>
+    <button class="btn2" onclick="roles()">My roles</button>
+
+    <table class="table" style="margin-top:10px;">
+      <thead><tr><th>Key</th><th>Value</th></tr></thead>
+      <tbody id="out"></tbody>
+    </table>
+  </div>
+</div>
+
+<script type="module">
+  import { gql, setToken } from "/js/api.js";
+  import { toast } from "/js/ui.js";
+
+  function render(obj){
+    const tbody = document.getElementById("out");
+    tbody.innerHTML = "";
+    for(const [k,v] of Object.entries(obj)){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${k}</td><td>${String(v)}</td>`;
+      tbody.appendChild(tr);
+    }
+  }
+
+  window.doLogin = async function(){
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("pass").value.trim();
+
+    const q = `
+      mutation($email:String!, $password:String!) {
+        login(email:$email, password:$password)
+      }
+    `;
+    const r = await gql(q, { email, password });
+
+    if(r?.data?.login){
+      setToken(r.data.login);
+      toast("Logged in ✅");
+      location.href = "/";
+      return;
+    }
+    toast("Login failed");
+    render({ error: JSON.stringify(r) });
+  }
+
+  window.me = async function(){
+    const r = await gql(`query { me }`);
+    render({ me: r?.data?.me ?? "—" });
+  }
+
+  window.roles = async function(){
+    const r = await gql(`query { myRoles }`);
+    render({ roles: (r?.data?.myRoles || []).join(", ") || "—" });
+  }
+</script>

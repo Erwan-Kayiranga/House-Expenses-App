@@ -1,0 +1,44 @@
+@page
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2>Admin</h2>
+<p>Delete users (Admin only)</p>
+
+<div class="card">
+  <button class="btn" onclick="adminLoadUsers()">Refresh users</button>
+  <div id="adminUsers" style="margin-top:12px;"></div>
+</div>
+
+<script>
+async function adminLoadUsers() {
+  // call graphql query that lists users (we’ll add it below if missing)
+  const q = `
+    query {
+      users { userId email }
+    }
+  `;
+  const r = await gql(q);
+  const users = r.data.users;
+
+  const div = document.getElementById("adminUsers");
+  div.innerHTML = users.map(u => `
+    <div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #222">
+      <div><b>${u.email}</b><div style="opacity:.7;font-size:12px">${u.userId}</div></div>
+      <button class="btn btn-danger" onclick="adminDeleteUser('${u.userId}')">Delete</button>
+    </div>
+  `).join("");
+}
+
+async function adminDeleteUser(id) {
+  if (!confirm("Delete this user?")) return;
+  const m = `
+    mutation($id:String!){
+      deleteUser(userId:$id)
+    }
+  `;
+  await gql(m, { id });
+  await adminLoadUsers();
+}
+</script>

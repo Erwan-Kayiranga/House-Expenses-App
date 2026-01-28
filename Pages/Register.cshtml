@@ -1,0 +1,48 @@
+@page
+@{
+  ViewData["Title"] = "Register";
+}
+
+<div class="grid">
+  <div class="card">
+    <h2>Create account</h2>
+    <div class="muted">New users get role: User</div>
+
+    <input id="email" placeholder="Email" />
+    <input id="pass" placeholder="Password (min 6)" type="password" />
+    <button onclick="doRegister()">Register</button>
+  </div>
+
+  <div class="card">
+    <h2>Tip</h2>
+    <div class="muted">
+      After registering, go to Login and sign in.
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { gql } from "/js/api.js";
+  import { toast } from "/js/ui.js";
+
+  window.doRegister = async function(){
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("pass").value.trim();
+
+    const q = `
+      mutation($email:String!, $password:String!) {
+        registerUser(email:$email, password:$password)
+      }
+    `;
+    const r = await gql(q, { email, password });
+
+    if(r?.data?.registerUser){
+      toast("Registered ✅ Now login");
+      location.href = "/Login";
+      return;
+    }
+
+    toast("Registration failed");
+    console.log(r);
+  }
+</script>

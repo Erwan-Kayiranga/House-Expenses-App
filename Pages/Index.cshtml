@@ -1,0 +1,103 @@
+@page
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="card header-card">
+    <div>
+        <h1 class="page-title">Dashboard</h1>
+        <div class="muted">Multi-page UI (Razor Pages) calling GraphQL backend</div>
+
+        <div class="muted" style="margin-top:10px;">
+            <span class="dot"></span>
+            <span id="authStatus">Checking auth...</span>
+        </div>
+
+        <div class="muted" style="margin-top:6px;">
+            Signed in as <strong id="whoamiLabel">Guest</strong>
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button class="btn primary" type="button" onclick="ui_showToken()">Show token</button>
+        <button class="btn" type="button" onclick="ui_logout()">Logout</button>
+    </div>
+</div>
+
+<!-- KPI cards -->
+<div class="grid-4" style="margin-top:16px;">
+    <div class="stat-card">
+        <div class="stat-label">This month</div>
+        <div class="stat-value" id="kpiMonth">PLN —</div>
+        <div class="stat-sub">Total spent</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">Households</div>
+        <div class="stat-value" id="kpiHouseholds">—</div>
+        <div class="stat-sub">Available groups</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">Expenses</div>
+        <div class="stat-value" id="kpiExpenses">—</div>
+        <div class="stat-sub">In selected month</div>
+    </div>
+
+    <div class="stat-card accent">
+        <div class="stat-label">Your balance</div>
+        <div class="stat-value" id="kpiBalance">PLN —</div>
+        <div class="stat-sub">Net position</div>
+    </div>
+</div>
+
+<div class="grid-3">
+    <!-- Quick tips -->
+    <div class="card">
+        <h3 style="margin:0 0 8px 0;">Quick actions</h3>
+        <div class="muted">Use these to test features fast.</div>
+
+        <div class="grid-2" style="margin-top:14px;">
+            <div class="mini-card" onclick="location.href='/Login'">
+                <div class="mini-title">🔐 Login</div>
+                <div class="muted">Get JWT and unlock actions</div>
+            </div>
+
+            <div class="mini-card" onclick="location.href='/Households'">
+                <div class="mini-title">🏡 Households</div>
+                <div class="muted">Create / list / join</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category tiles (visual, no checkbox) -->
+    <div class="card">
+        <h3 style="margin:0 0 8px 0;">Categories</h3>
+        <div class="muted">UI showcase (like real finance apps)</div>
+
+        <div class="category-grid">
+    <div class="category-card groceries">🥦 Groceries</div>
+    <div class="category-card housing">🏠 Housing</div>
+    <div class="category-card transport">🚗 Transport</div>
+    <div class="category-card entertainment">🎬 Entertainment</div>
+    <div class="category-card bills">📄 Bills</div>
+    <div class="category-card health">🏥 Healthcare</div>
+</div>
+    </div>    
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    const token = localStorage.getItem("token");
+    document.getElementById("authStatus").textContent = token ? "Token loaded" : "Not logged in";
+    document.getElementById("whoamiLabel").textContent = window.ui_getUserLabel ? ui_getUserLabel() : (token ? "Logged user" : "Guest");
+
+    // KPIs (safe placeholders - no backend dependency)
+    document.getElementById("kpiMonth").textContent = token ? "PLN 0.00" : "PLN —";
+    document.getElementById("kpiHouseholds").textContent = token ? "—" : "—";
+    document.getElementById("kpiExpenses").textContent = token ? "—" : "—";
+    document.getElementById("kpiBalance").textContent = token ? "PLN 0.00" : "PLN —";
+})();
+</script>
+}

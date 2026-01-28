@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/js/api.js",
+      "PackagePath": "staticwebassets/js/api.js"
+    },
+    {
+      "Id": "/home/erwankayiranga/household-expenses/HouseholdExpenses/wwwroot/js/ui.js",
+      "PackagePath": "staticwebassets/js/ui.js"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.HouseholdExpenses.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.HouseholdExpenses.props",
+      "PackagePath": "build\\HouseholdExpenses.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.HouseholdExpenses.props",
+      "PackagePath": "buildMultiTargeting\\HouseholdExpenses.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.HouseholdExpenses.props",
+      "PackagePath": "buildTransitive\\HouseholdExpenses.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
